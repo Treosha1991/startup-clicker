@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -7,74 +6,76 @@
   <title>StartUP Clicker</title>
   <style>
     * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
     }
-    body {
-      margin: 0;
+
+    html, body {
+      width: 100%;
+      height: 100%;
       overflow: hidden;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom, #1a1a1a, #0d0d0d);
+      color: white;
       user-select: none;
-      font-family: sans-serif;
-      background: #111;
-      color: white;
     }
-    button {
-      font-size: 24px;
-      padding: 15px 30px;
-      background: #ff5722;
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+
+    #clickButton {
+      font-size: 28px;
+      padding: 20px 40px;
+      background-color: #ff5722;
+      color: white;
       border: none;
-      border-radius: 8px;
-      color: white;
+      border-radius: 12px;
       cursor: pointer;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+      transition: transform 0.1s;
     }
-    button:active {
-      transform: scale(0.98);
+
+    #clickButton:active {
+      transform: scale(0.96);
+    }
+
+    #counter {
+      margin-top: 30px;
+      font-size: 24px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>🚀 StartUP Clicker</h1>
-    <button onclick="clickButton()">Нажать</button>
-    <div class="stats">
-      ⚡ Энергия: <span id="energy">100</span><br/>
-      ⬆️ Уровень: <span id="level">1</span>
-    </div>
-    <div class="log" id="log"></div>
+    <h1>StartUP Clicker</h1>
+    <button id="clickButton">🔥 Нажать</button>
+    <div id="counter">Кликов: 0</div>
   </div>
 
   <script>
-    let energy = 100;
-    let level = 1;
+    let counter = 0;
+    const button = document.getElementById("clickButton");
+    const counterEl = document.getElementById("counter");
 
-    function clickButton() {
-      if (energy <= 0) {
-        log("❌ Нет энергии!");
-        return;
-      }
-
-      energy -= 1;
-      let chance = 70 - Math.min(level * 2, 40);
-      let rand = Math.random() * 100;
-
-      if (rand <= chance) {
-        level += 1;
-        log("🎉 Уровень повышен до " + level);
-      } else {
-        log("🔁 Без изменений.");
-      }
-
-      updateStats();
-    }
-
-    function log(text) {
-      document.getElementById("log").textContent = text;
-    }
-
-    function updateStats() {
-      document.getElementById("energy").textContent = energy;
-      document.getElementById("level").textContent = level;
-    }
+    button.addEventListener("click", () => {
+      counter++;
+      counterEl.textContent = "Кликов: " + counter;
+    });
   </script>
 </body>
 </html>
